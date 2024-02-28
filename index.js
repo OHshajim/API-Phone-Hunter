@@ -1,4 +1,4 @@
-const PhonesInfo = async (search, show) => {
+const PhonesInfo = async (search='samsung', show) => {
   const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${search}`);
   const data = await res.json();
   const phones = data.data;
@@ -30,18 +30,45 @@ const displayPhone = (phones, show) => {
     div.innerHTML = `
         <div class="card  bg-base-100 shadow-xl">
         <figure><img src="${element.image}" alt="Phone" class=" mt-10 rounded-lg" /></figure>
-        <div class="card-body">
+        <div class="card-body items-center justify-center">
           <h2 class="card-title">${element.phone_name}</h2>
-          <p>If a men need phones whose phones does he choose?</p>
+          <p>There are many variations of passages of available, but the majority have suffered</p>
+          <h1 class = "text-2xl font-extrabold my-1">$999</h1>
           <div class="card-actions justify-center">
-            <button class="btn ">Show Details</button>
+            <button class="btn " onclick="detail_modal.showModal() ; detailModel('${element.slug}')">Show Details</button>
           </div>
         </div>
-      </div>
-        `;
+      </div> `;
+
     PhonesContainer.appendChild(div);
   });
   loading(false);
+}
+
+// showing details 
+const detailModel = (id) => {
+  const Phones = async (search, show) => {
+    const res = await fetch(`https://openapi.programming-hero.com/api/phone/${id}`);
+    const data = await res.json();
+    const details = data.data;
+    console.log(details)
+
+    //add image
+    const phone = document.getElementById('phone-card');
+    phone.innerHTML = `
+    <figure class="m-auto" > <img src="${details.image}" alt="phone" class="rounded-lg" ></figure>
+    <h2 id="PhoneName" class="font-bold text-2xl text-center">${details.name}</h2>
+    <h3 class="mt-4">Storage : ${details.mainFeatures.storage}</h3>
+    <h3>Display Size : ${details.mainFeatures.displaySize}</h3>
+    <h3>Chipset : ${details.mainFeatures.chipSet}</h3>
+    <h3>Memory : ${details.mainFeatures.memory}</h3>
+    <h3>Slug : ${details.slug}</h3>
+    <h3>Release data : ${details.releaseDate}</h3>
+    <h3>Brand : ${details.brand}</h3>
+    <h3>GPS : ${details.others.GPS}</h3>
+    `;
+  };
+  Phones();
 }
 
 // search button
@@ -67,3 +94,5 @@ const loading = (value) => {
 const showAll = () => {
   handleSearch(true);
 }
+
+PhonesInfo();
