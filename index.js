@@ -43,6 +43,12 @@ const displayPhone = (phones, show) => {
     PhonesContainer.appendChild(div);
   });
   loading(false);
+  if(!phones.length>0){
+    ShowError()
+  }
+  else{
+    hideError()
+  }
 }
 
 // showing details 
@@ -65,7 +71,7 @@ const detailModel = (id) => {
     <h3>Slug : ${details.slug}</h3>
     <h3>Release data : ${details.releaseDate}</h3>
     <h3>Brand : ${details.brand}</h3>
-    <h3>GPS : ${details.others.GPS}</h3>
+    <h3>GPS : ${details.others?.GPS ||'no GPS'}</h3>
     `;
   };
   Phones();
@@ -94,5 +100,16 @@ const loading = (value) => {
 const showAll = () => {
   handleSearch(true);
 }
+
+// Error part 
+const errorText = document.getElementById('error')
+const hideError = ()=>{
+  errorText.classList.add("hidden")
+}
+const ShowError = ()=>{
+  errorText.classList.remove("hidden")
+}
+
+
 
 PhonesInfo();
