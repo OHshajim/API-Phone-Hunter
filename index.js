@@ -12,7 +12,7 @@ const displayPhone = (phones, show) => {
 
   // show phones on limit and show btn remove or show
   const showBtn = document.getElementById('showAll');
-  if (phones.length >= 15 && !show) {
+  if (phones.length >= 12 && !show) {
     showBtn.classList.remove('hidden');
   }
   else {
@@ -21,7 +21,7 @@ const displayPhone = (phones, show) => {
 
   // show all 
   if (!show) {
-    phones = phones.slice(0, 15);
+    phones = phones.slice(0, 12);
   };
 
   // show phones
@@ -71,7 +71,7 @@ const detailModel = (id) => {
     <h3>Slug : ${details.slug}</h3>
     <h3>Release data : ${details.releaseDate}</h3>
     <h3>Brand : ${details.brand}</h3>
-    <h3>GPS : ${details.others?.GPS ||'no GPS'}</h3>
+    <h3>GPS : ${details.others?.GPS ||'No GPS available in this device'}</h3>
     `;
   };
   Phones();
